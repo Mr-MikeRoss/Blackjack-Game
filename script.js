@@ -1,16 +1,13 @@
-//game status
-let isAlive = true
-let hasBlackjack = false
 
-// variables
-let cardEl = document.getElementById("card-el")
-let firstCard = 11
-let secondCard = 11
-let sum = firstCard + secondCard 
-let message = ""
-// game
 
-function game() {
+function playGame() {
+    let isAlive = false
+    let hasBlackjack = false
+    let cardEl = document.getElementById("card-el")
+    let firstCard = 11
+    let secondCard = 11
+    let sum = firstCard + secondCard 
+    let message = ""
     if (sum < 21) {
         message = "Would you like to draw another Card?"
         cardEl.textContent = message
@@ -26,5 +23,3 @@ function game() {
         console.log(isAlive)
     }
 }
-
-game()
