@@ -12,6 +12,9 @@ let sum = firstCard + secondCard
 let message = ""
 // When game starts
 function startGame() {
+    renderGame()
+}
+function renderGame() {
     isAlive = true
     cardsEl.textContent = `Cards: ${firstCard}, ${secondCard}`
     sumEl.textContent = `Sum: ${sum}`
@@ -30,13 +33,11 @@ function startGame() {
 }
 
 function newCard() {
-    let newCard = 10
     if(isAlive && hasBlackjack === false) {
+        let newCard = 10
         sum += newCard
-        startGame()
-    } else {
-
-    }
+        renderGame()
+    } else {}
 }
 
 
