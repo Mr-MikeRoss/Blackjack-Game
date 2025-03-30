@@ -7,7 +7,7 @@ let isAlive = false
 let hasBlackjack= false
 //elements of game
 let firstCard = 11
-let secondCard = 10
+let secondCard = 6
 let sum = firstCard + secondCard
 let message = ""
 // When game starts
@@ -30,7 +30,13 @@ function startGame() {
 }
 
 function newCard() {
-    console.log("uwu")
+    let newCard = 10
+    if(isAlive && hasBlackjack === false) {
+        sum += newCard
+        startGame()
+    } else {
+
+    }
 }
 
 
