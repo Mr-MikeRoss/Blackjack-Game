@@ -22,7 +22,10 @@ function startGame() {
 
 function renderGame() {
     isAlive = true
-    cardsEl.textContent = `Cards: ${firstCard}, ${secondCard}`
+    cardsEl.textContent = `Cards: `
+    for (let i = 0; i < cards.length; i++) {
+        cardsEl.textContent += `${cards[i]} `
+    }
     sumEl.textContent = `Sum: ${sum}`
     if (sum < 21) {
         message = "Would you like to draw another card?"
