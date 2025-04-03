@@ -58,8 +58,8 @@ let cardsEl = document.getElementById("cards-el")
 let sumEl = document.getElementById("sum-el")
 
 // Global Variables
-let firstCard = 7
-let secondCard = 10
+let firstCard = getRandomCard()
+let secondCard = getRandomCard()
 let cards = [firstCard, secondCard]
 let sum = firstCard + secondCard
 let message = ""
@@ -91,9 +91,14 @@ function renderGame() {
 
 function newCard() {
     if (isAlive && !hasBlackjack) {
-        let newCard = 5
+        let newCard = getRandomCard()
         sum += newCard
         cards.push(newCard)
         renderGame()
     } else {}
+}
+
+// random card function
+function getRandomCard() {
+    return 7
 }
