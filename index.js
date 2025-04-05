@@ -55,7 +55,7 @@
 
 // game state
 let isAlive = false
-let hasBlackjack = false
+let hasBlackjack = true
 
 // DOM Interaction
 let messagEl = document.getElementById("message-el")
@@ -63,23 +63,35 @@ let cardsEl = document.getElementById("cards-el")
 let sumEl = document.getElementById("sum-el")
 
 // Global Variables
-let firstCard = randomCard()
-let secondCard = randomCard()
-let cards = [firstCard, secondCard]
-let sum = firstCard + secondCard
+let cards = []
+let sum = 0
 let message = ""
 
 // functions
 function startGame() {
-    renderGame()
+    if (!isAlive || hasBlackjack) {
+        let firstCard = randomCard()
+        let secondCard = randomCard()
+        cards = [firstCard, secondCard]
+        sum = firstCard + secondCard
+        renderGame()
+    } else {}
 }
 
 function randomCard() {
-    return 7
+    let randomNumber = Math.floor(Math.random() * 13) + 1
+    if (randomNumber < 2) {
+        return 11
+    } else if (randomNumber >= 10) {
+        return 10
+    } else {
+        return randomNumber
+    }
 }
 
 function renderGame() {
     isAlive = true
+    hasBlackjack = false
     cardsEl.textContent = `Cards: `
     for (let i = 0; i < cards.length; i++) {
         cardsEl.textContent += `${cards[i]} `
