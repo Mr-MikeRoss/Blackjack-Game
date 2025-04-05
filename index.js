@@ -1,29 +1,29 @@
-// // game states
+// //game state
 // let isAlive = false
 // let hasBlackjack = false
 
-// // DOM interacters
+// // Dom Interacters
+// let messageEl = document.getElementById("message-el")
 // let cardsEl = document.getElementById("cards-el")
 // let sumEl = document.getElementById("sum-el")
-// let messageEl = document.getElementById("message-el")
 
 // // Global Variables
-// let firstCard = 10
-// let secondCard = 5
+// let firstCard = getRandomCard()
+// let secondCard = getRandomCard()
 // let cards = [firstCard, secondCard]
 // let sum = firstCard + secondCard
 // let message = ""
 
-// // functions
-
+// // Game initiation
 // function startGame() {
 //     renderGame()
 // }
 
+// // game functions
 // function renderGame() {
 //     isAlive = true
 //     cardsEl.textContent = `Cards: `
-//     for (let i = 0; i < cards.length; i++) {
+//     for ( let i = 0; i < cards.length; i++) {
 //         cardsEl.textContent += `${cards[i]} `
 //     }
 //     sumEl.textContent = `Sum: ${sum}`
@@ -41,42 +41,50 @@
 
 // function newCard() {
 //     if (isAlive && !hasBlackjack) {
-//         let newCard = 6
+//         let newCard = getRandomCard()
 //         sum += newCard
 //         cards.push(newCard)
 //         renderGame()
 //     } else {}
 // }
 
-//game state
+// // random card function
+// function getRandomCard() {
+//     return 7
+// }
+
+// game state
 let isAlive = false
 let hasBlackjack = false
 
-// Dom Interacters
-let messageEl = document.getElementById("message-el")
+// DOM Interaction
+let messagEl = document.getElementById("message-el")
 let cardsEl = document.getElementById("cards-el")
 let sumEl = document.getElementById("sum-el")
 
 // Global Variables
-let firstCard = getRandomCard()
-let secondCard = getRandomCard()
+let firstCard = randomCard()
+let secondCard = randomCard()
 let cards = [firstCard, secondCard]
 let sum = firstCard + secondCard
 let message = ""
 
-// Game initiation
+// functions
 function startGame() {
     renderGame()
 }
 
-// game functions
+function randomCard() {
+    return 7
+}
+
 function renderGame() {
     isAlive = true
     cardsEl.textContent = `Cards: `
-    for ( let i = 0; i < cards.length; i++) {
+    for (let i = 0; i < cards.length; i++) {
         cardsEl.textContent += `${cards[i]} `
     }
-    sumEl.textContent = `Sum: ${sum}`
+    sumEl.textContent = sum
     if (sum < 21) {
         message = "Would you like to draw another card?"
     } else if (sum === 21) {
@@ -86,19 +94,14 @@ function renderGame() {
         message = "You're out of the game."
         isAlive = false
     }
-    messageEl.textContent = message
+    messagEl.textContent = message
 }
 
 function newCard() {
     if (isAlive && !hasBlackjack) {
-        let newCard = getRandomCard()
+        let newCard = randomCard()
         sum += newCard
         cards.push(newCard)
         renderGame()
     } else {}
-}
-
-// random card function
-function getRandomCard() {
-    return 7
 }
