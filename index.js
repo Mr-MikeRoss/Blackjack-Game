@@ -2,36 +2,40 @@
 let isAlive = false
 let hasBlackjack = true
 
-// DOM Interaction
-let messagEl = document.getElementById("message-el")
+// DOM Interacter-ers
+let messageEl = document.getElementById("message-el")
 let cardsEl = document.getElementById("cards-el")
-let sumEl = document.getElementById("sum-el")
+let sumEl = document.querySelector("#sum-el")
+let startBtnEl = document.getElementById("start-btn")
+let newCardBtnEl = document.getElementById("new-card")
 
 // Global Variables
 let cards = []
 let sum = 0
 let message = ""
 
-// functions
+// Game functions
+function getRandomCard() {
+    let randomCard = Math.floor(Math.random() * 13) + 1
+    if (randomCard === 1) {
+        return 11
+    } else if (randomCard > 10) {
+        return 10
+    } else {
+        return randomCard
+    }
+}
+
 function startGame() {
     if (!isAlive || hasBlackjack) {
-        let firstCard = randomCard()
-        let secondCard = randomCard()
+        startBtnEl.textContent = "Good Luck"
+        newCardBtnEl.style.display = "block" ;
+        let firstCard = getRandomCard()
+        let secondCard = getRandomCard()
         cards = [firstCard, secondCard]
         sum = firstCard + secondCard
         renderGame()
     } else {}
-}
-
-function randomCard() {
-    let randomNumber = Math.floor(Math.random() * 13) + 1
-    if (randomNumber < 2) {
-        return 11
-    } else if (randomNumber >= 10) {
-        return 10
-    } else {
-        return randomNumber
-    }
 }
 
 function renderGame() {
@@ -47,18 +51,20 @@ function renderGame() {
     } else if (sum === 21) {
         message = "You've got Blackjack!"
         hasBlackjack = true
+        startBtnEl.textContent = "Play Again?"
     } else {
         message = "You're out of the game."
         isAlive = false
+        startBtnEl.textContent = "Play Again?"
     }
-    messagEl.textContent = message
+    messageEl.textContent = message
 }
 
-function newCard() {
+function getNewCard() {
     if (isAlive && !hasBlackjack) {
-        let newCard = randomCard()
-        sum += newCard
+        let newCard = getRandomCard()
         cards.push(newCard)
+        sum += newCard
         renderGame()
     } else {}
 }
