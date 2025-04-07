@@ -8,11 +8,16 @@ let cardsEl = document.getElementById("cards-el")
 let sumEl = document.getElementById("sum-el")
 let startBtnEl = document.getElementById("start-btn")
 let newCardBtnEl = document.getElementById("new-card")
+let playerEl = document.getElementById("player")
 
 // Global Variables
 let sum = 0
 let cards = []
 let message = ""
+let player = {
+    name: "Mike",
+    chips: 100
+}
 
 // functions
 function startGame() {
@@ -22,6 +27,7 @@ function startGame() {
         cards = [firstCard, secondCard]
         sum = firstCard + secondCard
         startBtnEl.textContent = "Game in Session.."
+        playerEl.textContent = `${player.name}: ${player.chips}$`
         renderGame()
     } else {}
 }
