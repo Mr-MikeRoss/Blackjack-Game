@@ -1,39 +1,27 @@
-// game state
+//game state
 let isAlive = false
 let hasBlackjack = true
 
-// DOM Interacter-ers
+//Dom Interaction
 let messageEl = document.getElementById("message-el")
 let cardsEl = document.getElementById("cards-el")
-let sumEl = document.querySelector("#sum-el")
+let sumEl = document.getElementById("sum-el")
 let startBtnEl = document.getElementById("start-btn")
 let newCardBtnEl = document.getElementById("new-card")
 
 // Global Variables
-let cards = []
 let sum = 0
+let cards = []
 let message = ""
 
-// Game functions
-function getRandomCard() {
-    let randomCard = Math.floor(Math.random() * 13) + 1
-    if (randomCard === 1) {
-        return 11
-    } else if (randomCard > 10) {
-        return 10
-    } else {
-        return randomCard
-    }
-}
-
+// functions
 function startGame() {
     if (!isAlive || hasBlackjack) {
-        startBtnEl.textContent = "Good Luck"
-        newCardBtnEl.style.display = "block" ;
         let firstCard = getRandomCard()
         let secondCard = getRandomCard()
         cards = [firstCard, secondCard]
         sum = firstCard + secondCard
+        startBtnEl.textContent = "Game in Session.."
         renderGame()
     } else {}
 }
@@ -41,14 +29,15 @@ function startGame() {
 function renderGame() {
     isAlive = true
     hasBlackjack = false
+    newCardBtnEl.style.display = "block";
     cardsEl.textContent = `Cards: `
     for (let i = 0; i < cards.length; i++) {
         cardsEl.textContent += `${cards[i]} `
     }
-    sumEl.textContent = sum
+    sumEl.textContent = `Sum: ${sum}`
     if (sum < 21) {
-        message = "Would you like to draw another card?"
-    } else if (sum === 21) {
+        message = "Would you like to draw again?"
+    } else if ( sum === 21) {
         message = "You've got Blackjack!"
         hasBlackjack = true
         startBtnEl.textContent = "Play Again?"
@@ -67,4 +56,15 @@ function getNewCard() {
         sum += newCard
         renderGame()
     } else {}
+}
+
+function getRandomCard() {
+    let randomCard = Math.floor(Math.random() * 13) + 1
+    if (randomCard === 1) {
+        return 11
+    } else if (randomCard > 10) {
+        return 10
+    } else {
+        return randomCard
+    }
 }
