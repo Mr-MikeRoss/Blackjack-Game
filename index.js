@@ -2,24 +2,24 @@
 let isAlive = false
 let hasBlackjack = true
 
-//Dom Interacters
-let startBtnEl = document.getElementById("start-btn")
-let newCardBtnEl = document.getElementById("new-card")
-let stayBtnEl = document.getElementById("stay-btn")
+// DOM Interacters
 let messageEl = document.getElementById("message-el")
 let cardsEl = document.getElementById("cards-el")
 let sumEl = document.getElementById("sum-el")
 let dealerCardsEl = document.getElementById("dealer-cards")
 let dealerSumEl = document.getElementById("dealer-sum")
+let startBtnEl = document.getElementById("start-btn")
+let newCardBtnEl = document.getElementById("new-card")
+let stayBtnEl = document.getElementById("stay-btn")
 
-// global variables
+//global variables
 let cards = []
-let dealerCards = []
 let sum = 0
+let dealerCards = []
 let dealerSum = 0
 let message = ""
 
-// game functions
+// functions of game
 function getRandomCard() {
     let randomCard = Math.floor(Math.random() * 13) + 1
     if (randomCard === 1) {
@@ -33,19 +33,19 @@ function getRandomCard() {
 
 function startGame() {
     if (!isAlive || hasBlackjack) {
+        dealerCardsEl.textContent = ""
+        dealerSumEl.textContent = ""
         let firstCard = getRandomCard()
         let secondCard = getRandomCard()
-        cards = [firstCard, secondCard]
         sum = firstCard + secondCard
+        cards = [firstCard, secondCard]
         let dealerFirstCard = getRandomCard()
         let dealerSecondCard = getRandomCard()
-        dealerCards = [dealerFirstCard, dealerSecondCard]
         dealerSum = dealerFirstCard + dealerSecondCard
+        dealerCards = [dealerFirstCard, dealerSecondCard]
         startBtnEl.textContent = "Game in session.."
         newCardBtnEl.style.display = "block" ;
         stayBtnEl.style.display = "block" ;
-        dealerCardsEl.textContent = ""
-        dealerSumEl.textContent = ""
         renderGame()
     }
 }
@@ -62,20 +62,19 @@ function renderGame() {
         message = "Would you like to draw again?"
     } else if (sum === 21) {
         message = "You've got Blackjack!"
-        startBtnEl.textContent = "Play Again?"
-        newCardBtnEl.style.display = "none" ;
-        stayBtnEl.style.display = "none" ;
         hasBlackjack = true
-    } else {
-        message = "You're out of the game"
         startBtnEl.textContent = "Play Again?"
         newCardBtnEl.style.display = "none" ;
         stayBtnEl.style.display = "none" ;
+
+    } else {
+        message = "You're out of the game."
         isAlive = false
+        startBtnEl.textContent = "Play Again?"
+        newCardBtnEl.style.display = "none" ;
+        stayBtnEl.style.display = "none" ;
     }
     messageEl.textContent = message
-    console.log(isAlive)
-    console.log(hasBlackjack)
 }
 
 function getNewCard() {
@@ -88,31 +87,25 @@ function getNewCard() {
             dealerSum += dealerNewCard
             dealerCards.push(dealerNewCard)
         }
-        renderGame()
     }
+    renderGame()
 }
 
 function showDealerCards() {
-    dealerCardsEl.textContent = `Dealer Cards: `
-    for (let i = 0; i < dealerCards.length; i++) {
+    dealerCardsEl.textContent = `Dealer's Cards: `
+    for (let i = 0; i < dealerCards.length; i ++) {
         dealerCardsEl.textContent += `${dealerCards[i]} `
     }
-    dealerSumEl.textContent = `Dealer Sum: ${dealerSum}`
+    dealerSumEl.textContent = ` Dealer Sum: ${dealerSum}`
     if (dealerSum > sum && dealerSum <= 21) {
-        isAlive = false
         message = "Dealer Wins."
+        isAlive = false
         startBtnEl.textContent = "Play Again?"
         newCardBtnEl.style.display = "none" ;
         stayBtnEl.style.display = "none" ;
-    } else if (dealerSum === sum) {
+    } else if (sum > dealerSum) {
         isAlive = false
-        message = " It's a draw."
-        startBtnEl.textContent = "Play Again?"
-        newCardBtnEl.style.display = "none" ;
-        stayBtnEl.style.display = "none" ;
-    } else if ( sum > dealerSum) {
-        isAlive = false
-        message = "You beat the Dealer!"
+        message = "You beat the dealer. You Win!"
         startBtnEl.textContent = "Play Again?"
         newCardBtnEl.style.display = "none" ;
         stayBtnEl.style.display = "none" ;
