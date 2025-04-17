@@ -31,23 +31,31 @@ function getRandomCard() {
     }
 }
 
+function endGame() {
+    isAlive = false
+    startBtnEl.textContent = "Play Again?"
+    newCardBtnEl.style.display = "none" ;
+    stayBtnEl.style.display = "none" ;
+}
+
 function startGame() {
-    if (!isAlive || hasBlackjack) {
-        dealerCardsEl.textContent = ""
-        dealerSumEl.textContent = ""
-        let firstCard = getRandomCard()
-        let secondCard = getRandomCard()
-        sum = firstCard + secondCard
-        cards = [firstCard, secondCard]
-        let dealerFirstCard = getRandomCard()
-        let dealerSecondCard = getRandomCard()
-        dealerSum = dealerFirstCard + dealerSecondCard
-        dealerCards = [dealerFirstCard, dealerSecondCard]
-        startBtnEl.textContent = "Game in session.."
-        newCardBtnEl.style.display = "block" ;
-        stayBtnEl.style.display = "block" ;
-        renderGame()
+    if (isAlive) {
+        return
     }
+    dealerCardsEl.textContent = ""
+    dealerSumEl.textContent = ""
+    let firstCard = getRandomCard()
+    let secondCard = getRandomCard()
+    sum = firstCard + secondCard
+    cards = [firstCard, secondCard]
+    let dealerFirstCard = getRandomCard()
+    let dealerSecondCard = getRandomCard()
+    dealerSum = dealerFirstCard + dealerSecondCard
+    dealerCards = [dealerFirstCard, dealerSecondCard]
+    startBtnEl.textContent = "Game in session.."
+    newCardBtnEl.style.display = "block" ;
+    stayBtnEl.style.display = "block" ;
+    renderGame()
 }
 
 function renderGame() {
@@ -63,30 +71,26 @@ function renderGame() {
     } else if (sum === 21) {
         message = "You've got Blackjack!"
         hasBlackjack = true
-        startBtnEl.textContent = "Play Again?"
-        newCardBtnEl.style.display = "none" ;
-        stayBtnEl.style.display = "none" ;
+        endGame()
 
     } else {
         message = "You're out of the game."
-        isAlive = false
-        startBtnEl.textContent = "Play Again?"
-        newCardBtnEl.style.display = "none" ;
-        stayBtnEl.style.display = "none" ;
+        endGame()
     }
     messageEl.textContent = message
 }
 
 function getNewCard() {
-    if (isAlive && !hasBlackjack) {
-        let newCard = getRandomCard()
-        sum += newCard
-        cards.push(newCard)
-        if (dealerSum <= 16) {
-            let dealerNewCard = getRandomCard()
-            dealerSum += dealerNewCard
-            dealerCards.push(dealerNewCard)
-        }
+    if (!isAlive) {
+        return
+    }
+    let newCard = getRandomCard()
+    sum += newCard
+    cards.push(newCard)
+    if (dealerSum <= 16) {
+        let dealerNewCard = getRandomCard()
+        dealerSum += dealerNewCard
+        dealerCards.push(dealerNewCard)
     }
     renderGame()
 }
@@ -99,22 +103,13 @@ function showDealerCards() {
     dealerSumEl.textContent = ` Dealer Sum: ${dealerSum}`
     if (dealerSum > sum && dealerSum <= 21) {
         message = "Dealer Wins."
-        isAlive = false
-        startBtnEl.textContent = "Play Again?"
-        newCardBtnEl.style.display = "none" ;
-        stayBtnEl.style.display = "none" ;
+        endGame()
     } else if (sum > dealerSum) {
-        isAlive = false
         message = "You beat the dealer. You Win!"
-        startBtnEl.textContent = "Play Again?"
-        newCardBtnEl.style.display = "none" ;
-        stayBtnEl.style.display = "none" ;
+        endGame()
     } else {
-        isAlive = false
         message = "Dealer broke 21. You Win!"
-        startBtnEl.textContent = "Play Again?"
-        newCardBtnEl.style.display = "none" ;
-        stayBtnEl.style.display = "none" ;
+        endGame()
     }
     messageEl.textContent = message
 }
