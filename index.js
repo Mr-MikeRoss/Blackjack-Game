@@ -123,8 +123,14 @@ let cardsEl = document.getElementById("cards-el")
 let sumEl = document.getElementById("sum-el")
 let messageEl = document.getElementById("message-el")
 
-//function
+//functions
+let randomCard = getRandomCard()
+function getRandomCard() {
+    let randomNumber = Math.floor(Math.random() * 11) + 1
+    return randomNumber
+}
+
 function startGame() {
     messageEl.textContent = "Draw again?"
-    cardsEl.textContent = `Cards: 10, 12`
+    cardsEl.textContent = `Cards: ${randomCard}`
 }
